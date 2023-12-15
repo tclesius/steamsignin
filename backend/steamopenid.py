@@ -53,9 +53,9 @@ class SteamOpenID:
         logger.info('...')
 
         if re.search('is_valid:true', validation_response):
-            if(matched64ID := re.search('https://steamcommunity.com/openid/id/(\\d+)', response['openid.claimed_id'])):
-                if matched64ID != None or matched64ID.group(1) != None:
-                    return matched64ID.group(1)
+            if(match := re.search('https://steamcommunity.com/openid/id/(\\d+)', response['openid.claimed_id'])):
+                if (steamid := match.group(1)):
+                    return steamid
             else:
                 # If we somehow fail to get a valid steam64ID, just return None
                 return None
